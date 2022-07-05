@@ -1,0 +1,15 @@
+FROM python:3.9
+
+
+RUN adduser lizard
+USER lizard
+WORKDIR /home/lizard
+ENV PATH="/home/lizard/.local/bin:${PATH}"
+
+RUN pip3 install lizard --disable-pip-version-check
+
+CMD	EXIT_STATUS=0; \
+        (lizard --exclud "*/.local/*" --exclude "*/build/*") || EXIT_STATUS=$$? && \
+        (lizard --exclud "*/.local/*" --exclude "*/build/*" --output_file=lizard_report.xml -X) || EXIT_STATUS=$$? && \
+        (cp lizard_report.xml /tmp/out) || EXIT_STATUS=$$? && \
+        exit $$EXIT_STATUS
