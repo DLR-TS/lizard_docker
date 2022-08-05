@@ -47,4 +47,3 @@ Total nloc   Avg.NLOC  AvgCCN  Avg.token   Fun Cnt  Warning cnt   Fun Rt   nloc 
          8       2.0     1.0       11.0        2            0      0.00    0.00
 
 ```
-
