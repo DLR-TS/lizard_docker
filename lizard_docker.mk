@@ -1,7 +1,7 @@
 
-ifndef cppcheck_docker.mk
+ifndef cppcheck_docker
 
-cppcheck_docker.mk:=""
+cppcheck_docker:=""
 
 .PHONY: lizard 
 lizard: ## Print out lizard static analysis report.
