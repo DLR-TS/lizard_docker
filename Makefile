@@ -8,10 +8,12 @@ TAG="${PROJECT}:${VERSION}"
 
 ROOT_DIR:=$(shell dirname "$(realpath $(firstword $(MAKEFILE_LIST)))")
 MAKEFLAGS += --no-print-directory
+
 .EXPORT_ALL_VARIABLES:
 DOCKER_BUILDKIT?=1
 DOCKER_CONFIG?=
 
+$(error "DOCKER_CONFIG: ${DOCKER_CONFIG}")
 
 .PHONY: help
 help:
@@ -26,15 +28,14 @@ clean:
 	docker rmi $$(docker images -q ${TAG}) 2> /dev/null || true
 	docker rmi ${TAG} --force 2> /dev/null
 
+.PHONY: build_fast
+build_fast: ## Build docker context only if it does not already exist
+	@[ ! -n "$$(docker images -q ${TAG})" ] && make build || true
+
 .PHONY: build
-build: clean
+build: build_fast clean
 	docker build -t ${TAG} -f Dockerfile.lizard .
 
-.PHONY: build_check
-build_check:
-	@[ -n "$$(docker images -q ${TAG} 2> /dev/null)" ] && \
-          echo "" || \
-          make build
 
 .PHONY: check_CPP_PROJECT_DIRECTORY
 check_CPP_PROJECT_DIRECTORY:
