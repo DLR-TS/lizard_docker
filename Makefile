@@ -32,7 +32,7 @@ build_fast: ## Build docker context only if it does not already exist
 
 .PHONY: build
 build: clean
-	docker build -t ${TAG} -f Dockerfile.lizard .
+	docker build --network host -t ${TAG} -f Dockerfile.lizard .
 
 .PHONY: check_CPP_PROJECT_DIRECTORY
 check_CPP_PROJECT_DIRECTORY:
