@@ -1,14 +1,14 @@
 
-ifndef cppcheck_docker
+ifndef LIZARD_MAKEFILE_PATH 
 
-cppcheck_docker:=""
+LIZARD_MAKEFILE_PATH:=$(shell realpath "$(shell dirname "$(lastword $(MAKEFILE_LIST))")")
+
+LIZARD_PROJECT=lizard
+LIZARD_TAG:=latest
 
 .PHONY: lizard 
-lizard: ## Print out lizard static analysis report.
-	find . -name "**lizard_report.**" -exec rm -rf {} \;
-	cd lizard_docker && \
-    (make lizard CPP_PROJECT_DIRECTORY=$$(realpath ${ROOT_DIR}/${PROJECT}) | \
-    tee ${ROOT_DIR}/${PROJECT}/${PROJECT}_lizard_report.log)
-	find . -name "**lizard_report.xml**" -print0 | xargs -0 -I {} mv {} ${PROJECT}/${PROJECT}_lizard_report.xml
+lizard: ## Print out lizard static analysis report for source code
+	cd ${LIZARD_MAKEFILE_PATH} && \
+    make _lizard
 
 endif

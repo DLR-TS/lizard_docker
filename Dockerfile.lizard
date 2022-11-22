@@ -10,5 +10,7 @@ RUN pip3 install lizard --disable-pip-version-check
 
 COPY lizard.sh .
 
-CMD bash lizard.sh
+
+WORKDIR /tmp/lizard
+CMD bash /home/lizard/lizard.sh
 
