@@ -8,7 +8,7 @@ MAKEFLAGS += --no-print-directory
 
 .EXPORT_ALL_VARIABLES:
 DOCKER_BUILDKIT?=1
-DOCKER_CONFIG?=
+DOCKER_CONFIG:=
 
 include ${ROOT_DIR}/lizard_docker.mk
 
