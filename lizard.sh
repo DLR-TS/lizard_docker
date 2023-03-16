@@ -12,6 +12,7 @@ lizard \
         --exclude "*/cmake/*" \
         --exclude "*/external/*" \
         --exclude "*/install/*" \
+        --output_file=lizard_report.log \
         ; \
 lizard \
         --exclude "*/.local/*" \
@@ -19,5 +20,7 @@ lizard \
         --exclude "*/cmake/*" \
         --exclude "*/external/*" \
         --exclude "*/install/*" \
-        --output_file=lizard_report.xml -X;
-
+        --output_file=lizard_report.xml \
+        --xml;
+echo "pwd: $(pwd)"
+cat lizard_report.log
